@@ -24,30 +24,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        
-        if(Input.GetKey(KeyCode.RightArrow))
-        {
-            playerRb.AddForce(Vector3.right * horizontalInput * speed);
-        }
-        if(Input.GetKey(KeyCode.LeftArrow))
-        {
-            playerRb.AddForce(Vector3.left * -horizontalInput * speed);
-        }
-        if(Input.GetKeyDown(KeyCode.UpArrow) && isOnGround)
-        {
-            playerRb.AddForce(Vector3.up, ForceMode.Impulse);
-            isOnGround = false;
-        }
-        if(transform.position.x < leftBound)
-        {
-            transform.position = new Vector3(leftBound, transform.position.y, transform.position.z);
-        }
-        if(transform.position.x > rightBound)
-        {
-            transform.position = new Vector3(rightBound, transform.position.y, transform.position.z);
-        }
-
+        PlayerMovement();
+        ConstrainPlayer();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -55,6 +33,41 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = true;
+        }
+    }
+
+    private void PlayerMovement()
+    {
+        horizontalInput = Input.GetAxis("Horizontal");
+
+        //Right Arrow movement
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            playerRb.AddForce(Vector3.right * horizontalInput * speed);
+        }
+        //Left Arrow movement
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            playerRb.AddForce(Vector3.left * -horizontalInput * speed);
+        }
+        //Jump
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isOnGround)
+        {
+            isOnGround = false;
+            playerRb.AddForce(Vector3.up, ForceMode.Impulse);            
+        }
+    }
+
+    private void ConstrainPlayer()
+    {
+        //Prohibits player from leaving left/right bounds
+        if (transform.position.x < leftBound)
+        {
+            transform.position = new Vector3(leftBound, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x > rightBound)
+        {
+            transform.position = new Vector3(rightBound, transform.position.y, transform.position.z);
         }
     }
 }

@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private void WinCheck()
     {
         //This will eventually move the player to the next level
-        if (player.transform.position.z > 52)
+        if (player.transform.position.z > 90)
         {
             Debug.Log("You Win!");
             Application.Quit();

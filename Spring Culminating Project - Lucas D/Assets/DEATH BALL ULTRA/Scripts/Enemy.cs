@@ -16,21 +16,28 @@ public class Enemy : MonoBehaviour
     {
         enemyRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
+        StartCoroutine(Movement());
     }
 
     // Update is called once per frame
     void Update()
-    {
-        movement();
-        deathCheck();
+    {        
+        DeathCheck();
     }
 
-    private void movement()
+    private IEnumerator Movement()
     {
-        enemyRb.AddForce(enemyRb.transform.forward * Time.deltaTime * speed);
+        while (!gameManager.isGameOver)
+        {
+            enemyRb.AddForce(enemyRb.transform.forward * Time.deltaTime * speed, ForceMode.Acceleration);
+            yield return new WaitForSeconds(4);
+            enemyRb.AddForce(-enemyRb.transform.forward * Time.deltaTime * speed, ForceMode.Acceleration);
+            yield return new WaitForSeconds(4);
+        } 
     }
 
-    private void deathCheck()
+    private void DeathCheck()
     {
         if(transform.position.y < yDeath)
         {

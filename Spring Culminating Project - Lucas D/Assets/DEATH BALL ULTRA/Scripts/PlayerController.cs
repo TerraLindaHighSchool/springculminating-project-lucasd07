@@ -43,11 +43,16 @@ public class PlayerController : MonoBehaviour
 
     private void WinCheck()
     {
-        //Loads main menu as scene
+        //Checks if the player's z coordinate is past the goal
         if (player.transform.position.z > 90)
         {
-            Debug.Log("You Win!");
-            gameManager.LoadMainMenu();
+            //Makes the Win Text appear
+            gameManager.levelWinText.gameObject.SetActive(true);
+            //Makes sure the player doesn't lose any lives after already winning
+            if (transform.position.y < -19)
+                transform.position = new Vector3(transform.position.x, -19, transform.position.z);
+            //Loads main menu
+            StartCoroutine(gameManager.LoadMainMenu());
         }            
     }
 }

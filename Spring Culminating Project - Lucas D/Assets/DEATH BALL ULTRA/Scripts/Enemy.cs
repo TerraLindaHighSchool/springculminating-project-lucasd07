@@ -34,7 +34,8 @@ public class Enemy : MonoBehaviour
     {
         if(transform.position.y < yDeath)
         {
-            gameManager.updateDunked();
+            gameManager.UpdateDunked();
+            gameManager.UpdateScore(25);
             Destroy(gameObject);
         }
     }

@@ -12,21 +12,23 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
 
     private Rigidbody playerRb;
-    
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        movePlayer();
+        MovePlayer();
         WinCheck();
     }
 
-    private void movePlayer()
+    private void MovePlayer()
     {
         forwardInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
@@ -41,11 +43,11 @@ public class PlayerController : MonoBehaviour
 
     private void WinCheck()
     {
-        //This will eventually move the player to the next level
+        //Loads main menu as scene
         if (player.transform.position.z > 90)
         {
             Debug.Log("You Win!");
-            Application.Quit();
+            gameManager.LoadMainMenu();
         }            
     }
 }

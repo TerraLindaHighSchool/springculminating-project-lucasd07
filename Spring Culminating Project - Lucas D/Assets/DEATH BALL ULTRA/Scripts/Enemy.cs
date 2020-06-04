@@ -28,11 +28,11 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Movement()
     {
-        while (!gameManager.isGameOver)
+        while (gameManager.isGameActive)
         {
-            enemyRb.AddForce(enemyRb.transform.forward * Time.deltaTime * speed, ForceMode.Acceleration);
+            enemyRb.AddForce(enemyRb.transform.forward * Time.deltaTime * speed, ForceMode.Impulse);
             yield return new WaitForSeconds(4);
-            enemyRb.AddForce(-enemyRb.transform.forward * Time.deltaTime * speed, ForceMode.Acceleration);
+            enemyRb.AddForce(-enemyRb.transform.forward * Time.deltaTime * speed, ForceMode.Impulse);
             yield return new WaitForSeconds(4);
         } 
     }

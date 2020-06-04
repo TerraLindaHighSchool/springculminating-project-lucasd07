@@ -22,11 +22,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        movePlayer();
+        WinCheck();
+    }
+
+    private void movePlayer()
+    {
         forwardInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
         playerRb.AddForce(playerEmpty.transform.forward * speed * forwardInput);
         playerRb.AddForce(playerEmpty.transform.right * speed * horizontalInput);
-        WinCheck();
+
+        if(transform.position.z < 0)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        }
     }
 
     private void WinCheck()

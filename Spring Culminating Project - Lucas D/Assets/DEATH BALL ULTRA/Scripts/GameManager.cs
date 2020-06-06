@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI levelWinText;
 
+    public int difficulty; //Tutorial = 1, Easy = 2
+
     private float spawnPosX;
     private float spawnPosY = 8;
     private float spawnPosZ;
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
         dunkedText.text = "Enemies Dunked: " + enemiesDunked;
         scoreText.text = "Score: " + score;
 
-        StartCoroutine(SpawnEnemy(1));
+        StartCoroutine(SpawnEnemy(difficulty));
     }
 
     // Update is called once per frame
@@ -116,7 +118,7 @@ public class GameManager : MonoBehaviour
             {
                 Instantiate(enemyPrefab, GenerateSpawnPos(), enemyPrefab.transform.rotation);
             }
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(7);
         }
     }
 }

@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     public GameObject playerEmpty;
     public GameObject player;
 
+    public ParticleSystem collisionEnemy;
+    public ParticleSystem collisionWorld;
+
     [SerializeField] private float speed;
     private float forwardInput;
     private float horizontalInput;
@@ -14,11 +17,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private GameManager gameManager;
 
+    private AudioSource playerAudio;
+
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -54,5 +60,17 @@ public class PlayerController : MonoBehaviour
             //Loads main menu
             StartCoroutine(gameManager.LoadMainMenu());
         }            
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            collisionEnemy.Play();
+        }
+        if(collision.gameObject.CompareTag("World"))
+        {
+            collisionWorld.Play();
+        }
     }
 }

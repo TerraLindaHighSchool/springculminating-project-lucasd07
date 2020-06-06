@@ -10,6 +10,7 @@ public class MenuManager : MonoBehaviour
     public GameObject creditsButton;
     public GameObject creditsText;
     public GameObject backButton;
+    public GameObject exitButton;
     
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,7 @@ public class MenuManager : MonoBehaviour
         titleText.SetActive(false);
         tutorialButton.SetActive(false);
         creditsButton.SetActive(false);
+        exitButton.SetActive(false);
         
         creditsText.SetActive(true);
         backButton.SetActive(true);
@@ -50,8 +52,14 @@ public class MenuManager : MonoBehaviour
         titleText.SetActive(true);
         tutorialButton.SetActive(true);
         creditsButton.SetActive(true);
+        exitButton.SetActive(true);
 
         creditsText.SetActive(false);
         backButton.SetActive(false);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
